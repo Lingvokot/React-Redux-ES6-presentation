@@ -200,8 +200,8 @@ var HelloMessage = React.createClass({
 						<h2>Data Flow</h2>
 						<ol>
 							<li class="fragment">You call store.dispatch(action)</li>
-							<li class="fragment">Redux store calls the reducer</li>
-							<li class="fragment">Allows state to be updated</li>
+							<li class="fragment">Redux store calls the root reducer</li>
+							<li class="fragment">The Redux store saves the complete state tree returned by the root reducer.</li>
 						</ol>
 					</section>
 					<section>
