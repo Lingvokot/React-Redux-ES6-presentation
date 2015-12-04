@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>React, Redux, ES2015 - by Max Petruck</title>
+
+		<meta name="description" content="React, Redux, ES2015">
+		<meta name="author" content="Max Petruck">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+	    <div class="slides">
+        <section>
+					<h1>React, Redux, ES2015</h1>
+				</section>
+
+        <section>
+					<section>
+						<h1>React</h1>
+					</section>
+
+					<section>
+						<h2>Why React?</h2>
+						<ul>
+							<li class="fragment">Components</li>
+							<li class="fragment">VirtualDOM</li>
+							<li class="fragment">JSX</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Components</h2>
+						<ul>
+							<li class="fragment">Breaking UI into a compoent hierarchy is logical</li>
+							<li class="fragment">They usually great at one thing</li>
+							<li class="fragment">They usually highly reusable <span class="fragment"> epecially in large apps<span></li>
+							<li class="fragment">JSX is great for this</li>
+						</ul>
+						<aside class="notes">
+							If you think in a React way, the concerns of the application will be small composeable components.
+				    </aside>
+					</section>
+
+					<section>
+						<table>
+							<thead>
+								<tr>
+									<th>JSX</th>
+									<th>JS</th>
+								</tr>
+							</thead>
+							<tr>
+								<td>
+									<pre style="font-family: auto;width:auto;">
+										<code class="hljs" data-trim contenteditable>
+var HelloMessage = React.createClass({
+  render: function() {
+    return <div>Hello {this.props.name}</div>;
+  }
+});
+										</code>
+									</pre>
+								</td>
+								<td>
+									<pre style="font-family: auto;width:auto;">
+										<code class="hljs" data-trim contenteditable>
+var HelloMessage = React.createClass({
+  displayName: "HelloMessage",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      "Hello ",
+      this.props.name
+    );
+  }
+});
+										</code>
+									</pre>
+								</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h2>VirtualDOM</h2>
+						<ul>
+							<li>Efficiency</li>
+							<li>It has full event system</li>
+							<li>No direct DOM manipulations... <span class="fragment">Well you can manipulate DOM directly if you want</span></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Data Flow <span class="fragment">- Flux</span></h2>
+					</section>
+
+					<section>
+						<h2>What is Flux?</h2>
+						<img src="http://facebook.github.io/flux/img/flux-simple-f8-diagram-with-client-action-1300w.png"/>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Redux</h1>
+					</section>
+					<section>
+						<h2>What is Redux?</h2>
+						<ul>
+							<li class="fragment">
+								Is it Flux? <span class="fragment">Yes</span><span class="fragment">, and no</span>
+							</li>
+
+							<li class="fragment">
+								One store to rule them all.
+							</li>
+							<li class="fragment">
+								<u>Three principles</u> of Redux make state mutations predictable and reversable
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Three principles of Redux</h2>
+						<ol>
+							<li class="fragment">Single source of truth</li>
+							<li class="fragment">State is read-only</li>
+							<li class="fragment">Mutations are written as pure functions - <u>reducers</u></li>
+						</ol>
+						<aside class="notes">
+							1. The state of whole application is stored within a single store.
+									- State from your server can be serialized and hydrated into the client with no extra coding effort
+									- Easier debug
+									- Easy to implement undo/redo of whole state
+							2. The only way to mutate the state is to emit an action, an object describing what happened.
+							3. Reducers are just pure functions that take the previous state and an action, and return the next state.
+						</aside>
+					</section>
+					<section>
+						<h2>Redux actions</h2>
+						<pre>
+							<code class="hljs">
+{
+  type: MY_ACTION_TYPE,
+  // And here can be any data you need to transfer along with action
+  // If you need some
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Reducers</h2>
+						<p> Pure functions, that take action and state and return new state</p>
+						<p> State and Action ==> New State </p>
+					</section>
+					<section>
+						<h2>Reducer composition</h2>
+
+						<p class="fragment">It helps to split data handling logic,
+							when each of reducers is managing its own part of the global state</p>
+						<p class="fragment">Redux provides util <code>combineReducers()</code> that makes it easy to use.</p>
+					</section>
+					<section>
+						<h2>Store</h2>
+						<ul>
+							<li class="fragment">Holds application state</li>
+							<li class="fragment">Allows access to state</li>
+							<li class="fragment">Allows state to be updated</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Data Flow</h2>
+						<ol>
+							<li class="fragment">You call store.dispatch(action)</li>
+							<li class="fragment">Redux store calls the reducer</li>
+							<li class="fragment">Allows state to be updated</li>
+						</ol>
+					</section>
+					<section>
+						<h2>Middleware</h2>
+						<p>It provides a third-party extension point between dispatching an action, and the moment it reaches the reducer.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>ES2015</h1>
+					</section>
+					<section>
+						<h2>Modules</h2>
+						<ul>
+							<li class="fragment">Static module structure</li>
+							<li class="fragment">Helps avoid global variables</li>
+							<li class="fragment">Support for cyclic dependencies between modules</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Class</h2>
+					</section>
+					<section>
+						<h2>Lambda functions</h2>
+						<ul>
+							<li class="fragment">New function creation syntax</li>
+							<li class="fragment">Lexical binding</li>
+							<li class="fragment">Has no 'arguments'</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Examples</h2>
+						<pre>
+							<code class="hljs">
+function () { return 1; }
+() => { return 1; }
+() => 1
+
+function (a) { return a * 2; }
+(a) => { return a * 2; }
+(a) => a * 2
+a => a * 2
+
+function (a, b) { return a * b; }
+(a, b) => { return a * b; }
+(a, b) => a * b
+
+function () { return arguments[0]; }
+(...args) => args[0] // ES6 rest syntax helps to work without 'arguments'
+
+() => {} // undefined
+() => ({}) // {}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Spread operator</h2>
+						<pre>
+							<code class="hljs">
+Math.max(-1, 5, 11, 3) // 11
+Math.max(...[-1, 5, 11, 3]) // 11
+Math.max(-1, ...[5, 11], 3) // 11
+
+// example from Tic Tac Toe React
+// with ES6 spread operator
+function getMaxElement(arr) {
+  return Math.max(...arr);
+}
+// without ES6 spread
+function getMaxElement(arr) {
+  return Math.max.apply(null, arr);
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Rest operator</h2>
+						<pre>
+							<code class="hljs">
+function f(x, ...y) {
+  ···
+}
+f('a', 'b', 'c'); // x = 'a'; y = ['b', 'c']
+f(); // x = undefined; y = []
+							</code>
+						</pre>
+						<aside class="notes">
+							The spread operator (...) looks exactly like the rest operator, but it is used inside function calls and Array literals (not inside destructuring patterns).
+						</aside>
+					</section>
+					<section>
+						<h2>Destructuring</h2>
+						<pre>
+							<code class="hljs">
+// Can work with objects
+let {one, two} = {one: 1, two: 2} // one = 1, two = 2
+// And arrays
+let [,,x] = ['a', 'b', 'c', 'd']; // x = 'c'
+// Is that it? Nope, array destructuring works with iterable objects
+// Like strings
+let [x,y] = 'abc'; // x='a'; y=['b', 'c']
+// And Set
+let [x, y] = new Set(['x', 'y']); // x = 'x', y = 'y'
+// and etc.
+// It's works great with rest operator
+let [x,...y] = 'abc'; // x='a'; y=['b', 'c']
+// And looks great in functions
+function ([x, y, ...rest]) {...}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>let, const</h2>
+						<ul>
+							<li class="fragment">let and const are block scoped</li>
+							<li class="fragment">let and const <strike>don't get hoisted</strike> have TDZ (temporal Dead Zone)</li>
+							<li class="fragment">Variables defined with let/const can't be defined more than once in the same scope</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Template strings</h2>
+						<pre>
+							<code class="hljs">
+// Can contain multiline strings
+let multiline = `line 1
+      line2`; // and spaces matter
+let x = 1;
+// Can evaluate variables, or expressions inside ${...}
+let str = `${x + 41}` // str = '42'
+// Can be tagged
+function firstString(stringsArray, ...allValues) { // using the new ES6 rest syntax
+	// allValues is array of values passed inside ${}
+  return stringsArray[0];
+}
+let firstStr = firstString `Some text ${x} bla-bla`;
+// firstStr = 'Some text ';
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Async stuff</h2>
+					</section>
+				</section>
+	    </div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
