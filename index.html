@@ -167,7 +167,7 @@ var HelloMessage = React.createClass({
 					<section>
 						<h2>Redux actions</h2>
 						<pre>
-							<code class="hljs">
+							<code class="hljs" contenteditable>
 {
   type: MY_ACTION_TYPE,
   // And here can be any data you need to transfer along with action
@@ -236,7 +236,7 @@ var HelloMessage = React.createClass({
 					<section>
 						<h2>Examples</h2>
 						<pre>
-							<code class="hljs">
+							<code class="hljs" contenteditable>
 function () { return 1; }
 () => { return 1; }
 () => 1
@@ -261,7 +261,7 @@ function () { return arguments[0]; }
 					<section>
 						<h2>Spread operator</h2>
 						<pre>
-							<code class="hljs">
+							<code class="hljs" contenteditable>
 Math.max(-1, 5, 11, 3) // 11
 Math.max(...[-1, 5, 11, 3]) // 11
 Math.max(-1, ...[5, 11], 3) // 11
@@ -281,7 +281,7 @@ function getMaxElement(arr) {
 					<section>
 						<h2>Rest operator</h2>
 						<pre>
-							<code class="hljs">
+							<code class="hljs" contenteditable>
 function f(x, ...y) {
   ···
 }
@@ -296,7 +296,7 @@ f(); // x = undefined; y = []
 					<section>
 						<h2>Destructuring</h2>
 						<pre>
-							<code class="hljs">
+							<code class="hljs" contenteditable>
 // Can work with objects
 let {one, two} = {one: 1, two: 2} // one = 1, two = 2
 // And arrays
@@ -325,7 +325,7 @@ function ([x, y, ...rest]) {...}
 					<section>
 						<h2>Template strings</h2>
 						<pre>
-							<code class="hljs">
+							<code class="hljs" contenteditable>
 // Can contain multiline strings
 let multiline = `line 1
       line2`; // and spaces matter
